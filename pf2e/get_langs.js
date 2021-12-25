@@ -1,6 +1,15 @@
 const SPEAK_PRIVATE = true;
 const PLAYER_OWNED_ONLY = true;
 const ACTOR_TYPES = ["character"];
+const IGNORED_CLASSES = ["Animal Companion"];
+
+function isForbiddenClass(character){
+		for (let [key, value] of character.items.entries()) {
+	  	if (value.data.type === "class")
+	    		return IGNORED_CLASSES.includes(value.name);
+	  }    
+    return false;
+};
 
 function makeChatMessage(content){
 	let chatMessageData = {
@@ -16,24 +25,21 @@ function makeChatMessage(content){
 function getPlayerCharacters(){
 	let characters = game.actors.filter(pc=>ACTOR_TYPES.includes(pc.data.type));
 	
+	//FILTER OUT UNDESIRABLE CLASSES
+	
+	characters = characters.filter(char=>!isForbiddenClass(char));
+	
 	if (PLAYER_OWNED_ONLY){
-		const players = game.users.filter(player=>player.role!=CONST.USER_ROLES.GAMEMASTER);
-
-		let playerIDs=new Array();
-
-		players.forEach(pc=>playerIDs.push(pc.id));
-
-		return characters.filter(pc=> Object.keys(pc.data.permission).some(r=>playerIDs.includes(r)));
+		return characters.filter(pc=> pc.hasPlayerOwner);
 	} else {
 		return characters
 	}
 }
 
-const playerCharacters = getPlayerCharacters();
 
 let returnString="<table><tr><th>character</th><th>languages</th></tr>";
 
-playerCharacters.forEach(pc=>{
+getPlayerCharacters().forEach(pc=>{
 	returnString+="<tr><td>"+pc.name+"</td><td>";
 	pc.data.data.traits.languages.value.forEach(
 		function(lang,idx,array){
