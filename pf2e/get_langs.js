@@ -4,11 +4,11 @@ const ACTOR_TYPES = ["character"];
 const IGNORED_CLASSES = ["Animal Companion"];
 
 function isForbiddenClass(character){
-		for (let [key, value] of character.items.entries()) {
-	  	if (value.data.type === "class")
-	    		return IGNORED_CLASSES.includes(value.name);
-	  }    
-    return false;
+	for (let [key, value] of character.items.entries()) {
+		if (value.data.type === "class")
+			return IGNORED_CLASSES.includes(value.name);
+	}    
+	return false;
 };
 
 function makeChatMessage(content){
