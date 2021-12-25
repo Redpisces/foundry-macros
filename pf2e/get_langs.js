@@ -1,5 +1,5 @@
 const SPEAK_PRIVATE = true;
-const IGNORE_GMPC = true;
+const PLAYER_OWNED_ONLY = true;
 const ACTOR_TYPES = ["character"];
 
 function makeChatMessage(content){
@@ -16,7 +16,7 @@ function makeChatMessage(content){
 function getPlayerCharacters(){
 	let pcs = game.actors.filter(pc=>ACTOR_TYPES.includes(pc.data.type));
 	
-	if (IGNORE_GMPC){
+	if (PLAYER_OWNED_ONLY){
 		const players = game.users.filter(player=>player.role!=CONST.USER_ROLES.GAMEMASTER);
 
 		let playerIDs=new Array();
