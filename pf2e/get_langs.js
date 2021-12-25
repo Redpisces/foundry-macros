@@ -14,7 +14,7 @@ function makeChatMessage(content){
 };
 
 function getPlayerCharacters(){
-	let pcs = game.actors.filter(pc=>ACTOR_TYPES.includes(pc.data.type));
+	let characters = game.actors.filter(pc=>ACTOR_TYPES.includes(pc.data.type));
 	
 	if (PLAYER_OWNED_ONLY){
 		const players = game.users.filter(player=>player.role!=CONST.USER_ROLES.GAMEMASTER);
@@ -23,9 +23,9 @@ function getPlayerCharacters(){
 
 		players.forEach(pc=>playerIDs.push(pc.id));
 
-		return pcs.filter(pc=> Object.keys(pc.data.permission).some(r=>playerIDs.includes(r)));
+		return characters.filter(pc=> Object.keys(pc.data.permission).some(r=>playerIDs.includes(r)));
 	} else {
-		return pcs
+		return characters
 	}
 }
 
