@@ -1,5 +1,5 @@
 const ACTIVE_ONLY = false;
-const IGNORE_GM = true;
+const IGNORE_GM = false;
 let results = [];
 
 let idx = 0;
@@ -7,6 +7,7 @@ for (const [id, user] of game.users.entries()) {
 	if ((!IGNORE_GM || user.role < CONST.USER_ROLES.GAMEMASTER) && (!ACTIVE_ONLY || user.active)) {
 		idx += 1;
 		results.push({
+			img: user.data.avatar,
 			text: user.data.name,
 			range: [idx, idx]
 		});
