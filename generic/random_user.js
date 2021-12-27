@@ -22,4 +22,4 @@ let table = new RollTable({
 	formula: `1d${results.length}`,
 });
 
-table.draw()
+table.draw();
