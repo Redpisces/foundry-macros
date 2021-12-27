@@ -3,7 +3,7 @@ if (!actors) {
 	console.log("You must have at least 1 actor selected.");
 	return;
 }
-
+let heroPointsGiven=0
 //iterate over selected tokens
 for (let token of canvas.tokens.controlled) {
 	let actor = token.actor;
@@ -21,6 +21,7 @@ for (let token of canvas.tokens.controlled) {
 			console.log(actor.name, "has too many hero points and has been capped.");
 			heroPoint = actorHeroPoints.max;
 		} else {
+			heroPointsGiven += 1;
 			heroPoint = actorHeroPoints.value + 1;
 		}
 	} catch {
@@ -35,3 +36,4 @@ for (let token of canvas.tokens.controlled) {
 	let updated = await actor.update(update)
 	console.log(actor.name, "gains 1 hero point");
 }
+ui.notifications.notify(`Granted ${heroPointsGiven} hero points`)
