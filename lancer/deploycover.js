@@ -1,7 +1,7 @@
 //creates a copy of an actor specified by an id with mirroring and image set by position relative to first controled actor at location of click
 
-const ID = "MQLuD2F4ASsLChCF";
-const TOKEN_IMAGES = {above:"Player_Data/Cover1.webp", below:"Player_Data/Cover2.webp"};
+const ID = "CHANGE_ME";
+const TOKEN_IMAGES = {above:"EXAMPLE/1.webp", below:"EXAMPLE/2.webp"};
 
 const CONTROLED_TOKENS = canvas.tokens.controlled;
 
@@ -10,13 +10,24 @@ if (CONTROLED_TOKENS[0] == undefined) {
     ui.notifications.error("deploy cover: You must have at least 1 actor selected.");
     return;
 }
-
 const TOKEN = CONTROLED_TOKENS[0];
+
+//check to make sure images exist, could probably be more elegant, but ¯\_(ツ)_/¯
+if (!await srcExists(TOKEN_IMAGES.above)){
+    ui.notifications.error(`deploy cover: image ${TOKEN_IMAGES.above} not found `);
+    return;    
+}
+if (!await srcExists(TOKEN_IMAGES.below)){
+    ui.notifications.error(`deploy cover: image ${TOKEN_IMAGES.below} not found `);
+    return;    
+}
+
+
 
 //get base actor, and check if it is valid
 let baseActor = game.actors.get(ID);
 if (baseActor === undefined) {
-    ui.notifications.error("deploy cover: Invalid actor ID");
+    ui.notifications.error(`deploy cover: Actor ID '${ID}' is not valid (unlike you)`);
     return;
 }
 
