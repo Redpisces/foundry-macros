@@ -1,8 +1,9 @@
-let token = canvas.tokens.controlled[0];
+//let token = canvas.tokens.controlled[0];
+let token = game.user.targets.values().next().value;
 
 if (!token) {
-	ui.notifications.error("You must have at least 1 actor selected.");
-	return;
+    ui.notifications.error("You must have at least 1 actor selected.");
+    return;
 }
 
 let effects = token.actor.data.effects;
@@ -35,6 +36,5 @@ if (id === undefined){
     );
     
 } else {
-    
- token.actor.deleteEmbeddedDocuments("ActiveEffect",[id]) 
+    token.actor.deleteEmbeddedDocuments("ActiveEffect",[id]) 
 }
